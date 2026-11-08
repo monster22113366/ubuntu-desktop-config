@@ -1,0 +1,165 @@
+
+/* ==========================================
+   Waybar - Tokyo Night Storm
+   Minimal Top Bar
+   ========================================== */
+
+* {
+    font-family: "JetBrainsMono Nerd Font Mono",
+                 "Noto Sans Mono CJK SC",
+                 monospace;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    min-height: 0;
+    border: none;
+}
+
+/* Main bar */
+
+window#waybar {
+    background: rgba(26, 27, 38, 0.92);
+    color: #c0caf5;
+
+    border: 1px solid rgba(86, 95, 137, 0.45);
+    border-radius: 10px;
+}
+
+/* Workspaces */
+
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    color: #565f89;
+    background: transparent;
+
+    border-radius: 7px;
+    padding: 0 10px;
+    margin: 4px 2px;
+
+    transition: all 0.2s ease;
+}
+
+#workspaces button.active {
+    color: #1a1b26;
+    background: #7aa2f7;
+}
+
+#workspaces button:hover {
+    color: #c0caf5;
+    background: rgba(122, 162, 247, 0.20);
+}
+
+#workspaces button.urgent {
+    color: #f7768e;
+}
+
+/* Window title */
+
+#window {
+    color: #bb9af7;
+    font-weight: bold;
+}
+
+/* Common module spacing */
+
+#network,
+#custom-proxy,
+#cpu,
+#memory,
+#battery,
+#clock,
+#tray,
+#custom-power {
+    padding: 0 7px;
+    margin: 4px 1px;
+    border-radius: 6px;
+}
+
+/* Network */
+
+#network {
+    color: #7dcfff;
+}
+
+#network.disconnected {
+    color: #f7768e;
+}
+
+/* Proxy */
+
+#custom-proxy {
+    color: #9ece6a;
+}
+
+#custom-proxy.warning {
+    color: #e0af68;
+}
+
+#custom-proxy.critical {
+    color: #f7768e;
+}
+
+#custom-proxy.unavailable {
+    color: #565f89;
+}
+
+/* CPU */
+
+#cpu {
+    color: #7aa2f7;
+}
+
+/* Memory */
+
+#memory {
+    color: #bb9af7;
+}
+
+/* Battery */
+
+#battery {
+    color: #9ece6a;
+}
+
+#battery.warning {
+    color: #e0af68;
+}
+
+#battery.critical {
+    color: #f7768e;
+}
+
+#battery.charging {
+    color: #7dcfff;
+}
+
+/* Clock */
+
+#clock {
+    color: #c0caf5;
+    font-weight: bold;
+}
+
+/* System tray */
+
+#tray {
+    background: rgba(65, 72, 104, 0.20);
+    border-radius: 6px;
+}
+
+/* Power */
+
+#custom-power {
+    color: #f7768e;
+    font-size: 15px;
+    padding: 0 10px;
+}
+
+#custom-power:hover {
+    background: rgba(247, 118, 142, 0.15);
+}
+

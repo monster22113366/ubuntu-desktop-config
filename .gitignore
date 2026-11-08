@@ -1,0 +1,29 @@
+cat > .gitignore <<'EOF'
+# Backups
+**/backup/
+*.bak
+*.bak.*
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+*~
+
+# Editor
+.vscode/
+.idea/
+
+# Runtime
+.cache/
+__pycache__/
+*.pyc
+
+# Secrets
+.env
+.env.*
+!.env.example
+EOF
