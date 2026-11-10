@@ -21,4 +21,5 @@ cursor-style = block
 cursor-style-blink = false
 
 # ===== Terminal =====
+command = /bin/bash --login
 term = xterm-256color
