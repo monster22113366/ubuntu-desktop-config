@@ -25,63 +25,81 @@ hl.curve("almostLinear", {
     points = {{0.5, 0.5}, {0.75, 1}},
 })
 
--- Spring motion
+-- Near-critical damping keeps a little spring without visible bouncing.
 hl.curve("easy", {
     type = "spring",
     mass = 1,
-    stiffness = 238.1191,
-    damping = 24.21279333,
+    stiffness = 320,
+    damping = 34,
 })
 
 hl.animation({
     leaf = "global",
     enabled = true,
-    speed = 10,
+    speed = 3,
     bezier = "default",
 })
 
 hl.animation({
     leaf = "windows",
     enabled = true,
-    speed = 4.79,
+    speed = 3,
     spring = "easy",
 })
 
 hl.animation({
     leaf = "windowsIn",
     enabled = true,
-    speed = 4.1,
+    speed = 3,
     spring = "easy",
-    style = "popin 87%",
+    style = "popin 94%",
 })
 
 hl.animation({
     leaf = "windowsOut",
     enabled = true,
+    speed = 1.5,
+    bezier = "easeOutQuint",
+    style = "popin 96%",
+})
+
+-- Tiling layout, move and resize transitions settle quickly.
+hl.animation({
+    leaf = "windowsMove",
+    enabled = true,
     speed = 1.8,
     bezier = "easeOutQuint",
-    style = "popin 87%",
 })
 
 hl.animation({
     leaf = "fade",
     enabled = true,
-    speed = 3,
+    speed = 1.8,
     bezier = "almostLinear",
 })
 
 hl.animation({
     leaf = "border",
     enabled = true,
-    speed = 5,
+    speed = 1.6,
     bezier = "easeOutQuint",
 })
+
+-- Fade the focus opacity and colored outer shadow together.
+for _, leaf in ipairs({ "fadeSwitch", "fadeShadow" }) do
+    hl.animation({
+        leaf = leaf,
+        enabled = true,
+        speed = 1.6,
+        bezier = "easeOutQuint",
+    })
+end
 
 hl.animation({
     leaf = "workspaces",
     enabled = true,
-    speed = 2,
-    bezier = "easeInOutCubic",
-    style = "fade",
+    speed = 2.2,
+    bezier = "easeOutQuint",
+    style = "slidefade 12%",
 })
 

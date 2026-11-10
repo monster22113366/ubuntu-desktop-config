@@ -1,0 +1,14 @@
+/* Keep the shared Tokyo Night Storm palette; generous rows for explicit actions. */
+/* Appended to style.css by the caller: Wofi does not resolve relative imports. */
+#entry {
+    padding: 14px 18px;
+    margin: 5px;
+}
+#entry:selected {
+    background-color: #292e42;
+    border: 1px solid #bb9af7;
+}
+#entry:selected #text {
+    color: #bb9af7;
+    font-weight: bold;
+}

@@ -68,8 +68,6 @@ window#waybar {
 
 #network,
 #custom-proxy,
-#cpu,
-#memory,
 #battery,
 #clock,
 #tray,
@@ -85,7 +83,8 @@ window#waybar {
     color: #7dcfff;
 }
 
-#network.disconnected {
+#network.disconnected,
+#network.disabled {
     color: #f7768e;
 }
 
@@ -105,18 +104,6 @@ window#waybar {
 
 #custom-proxy.unavailable {
     color: #565f89;
-}
-
-/* CPU */
-
-#cpu {
-    color: #7aa2f7;
-}
-
-/* Memory */
-
-#memory {
-    color: #bb9af7;
 }
 
 /* Battery */
@@ -162,4 +149,3 @@ window#waybar {
 #custom-power:hover {
     background: rgba(247, 118, 142, 0.15);
 }
-

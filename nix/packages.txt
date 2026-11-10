@@ -1,0 +1,8 @@
+# Nixpkgs attributes, one per line. Existing executables/system packages are kept.
+# Verified against this machine's Nix profile; no Flake project is required.
+tmux
+neovim
+yazi
+starship
+tree-sitter
+nerd-fonts.jetbrains-mono

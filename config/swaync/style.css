@@ -1,0 +1,43 @@
+/* Preserve the installed widget layout; override only the visual theme. */
+@import url("/etc/xdg/swaync/style.css");
+
+@define-color cc-bg rgba(36, 40, 59, 0.96);
+@define-color noti-border-color rgba(122, 162, 247, 0.55);
+@define-color noti-bg #24283b;
+@define-color noti-bg-darker #1f2335;
+@define-color noti-bg-hover #292e42;
+@define-color noti-bg-focus rgba(122, 162, 247, 0.15);
+@define-color noti-close-bg #414868;
+@define-color noti-close-bg-hover #565f89;
+@define-color text-color #c0caf5;
+@define-color text-color-disabled #a9b1d6;
+@define-color bg-selected #7aa2f7;
+
+* {
+    font-family: "JetBrainsMono Nerd Font Mono", "Noto Sans Mono CJK SC", monospace;
+    font-size: 13px;
+}
+
+.control-center {
+    border: 1px solid @noti-border-color;
+    border-radius: 12px;
+    margin: 8px;
+    color: @text-color;
+}
+
+.notification {
+    box-shadow: 0 0 8px 0 rgba(122, 162, 247, 0.18);
+}
+
+.summary, .widget-title {
+    color: #bb9af7;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.body { font-size: 13px; }
+.time { font-size: 12px; color: #a9b1d6; }
+.notification.critical .notification-default-action { border-color: #f7768e; }
+
+switch:checked { background: #7aa2f7; }
+switch slider { background: #c0caf5; }

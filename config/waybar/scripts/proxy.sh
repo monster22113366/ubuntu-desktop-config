@@ -38,6 +38,7 @@ http_code=$(curl \
     --output /dev/null \
     --write-out '%{http_code}' \
     --proxy "$PROXY_URL" \
+    --noproxy "" \
     --connect-timeout 3 \
     --max-time "$TIMEOUT" \
     "$TEST_URL" 2>/dev/null) || http_code="000"
@@ -46,7 +47,7 @@ if [[ "$http_code" =~ ^[23][0-9][0-9]$ ]]; then
     printf '{"text":"PROXY OK","class":"normal","tooltip":"代理可用\\nHTTP: %s\\n目标: %s"}\n' \
         "$http_code" "$TEST_URL"
 else
-    printf '{"text":"PROXY ERR","class":"warning","tooltip":"代理连接失败或目标不可达\\nHTTP: %s"}\n' \
+    printf '{"text":"PROXY ON","class":"warning","tooltip":"本地代理端口已监听；目标探测未通过（不代表代理关闭）\\nHTTP: %s"}\n' \
         "$http_code"
 fi
 

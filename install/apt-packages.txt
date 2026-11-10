@@ -1,0 +1,30 @@
+# Ubuntu 24.04 packages. Only missing packages are installed; no PPA is added.
+# Hyprland 0.57.1, hypridle/hyprlock and native Ghostty must already be prepared.
+git
+curl
+ca-certificates
+xz-utils
+python3
+jq
+build-essential
+clangd
+clang-format
+ripgrep
+fd-find
+imagemagick
+fontconfig
+wl-clipboard
+xclip
+wofi
+waybar
+sway-notification-center
+libnotify-bin
+brightnessctl
+bluez
+wireplumber
+network-manager
+grim
+slurp
+xdg-user-dirs
+luajit
+desktop-file-utils

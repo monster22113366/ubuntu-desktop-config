@@ -10,9 +10,15 @@ local mod = "SUPER"
 -- Native Ubuntu Ghostty with corrected font locale
 local ghostty = "env LC_CTYPE=C.UTF-8 /usr/bin/ghostty"
 
--- Screenshot scripts
+-- Repository scripts and native window-management helpers
 local scripts = os.getenv("HOME") ..
     "/Projects/ubuntu-desktop-config/config/scripts"
+
+-- Load from the repository: existing installations symlink individual modules.
+local windows = dofile(scripts .. "/../hypr/config/window-management.lua")
+local function script(name)
+    return "'" .. (scripts .. "/" .. name):gsub("'", "'\"'\"'") .. "'"
+end
 
 -- ==========================================
 -- 1. Application launching
@@ -22,16 +28,16 @@ local scripts = os.getenv("HOME") ..
 hl.bind(
     mod .. " + G",
     hl.dsp.exec_cmd(ghostty),
-    { description = "Open Ghostty" }
+    { description = "应用｜打开 Ghostty" }
 )
 
 -- Super + T: Ghostty + tmux
 hl.bind(
     mod .. " + T",
     hl.dsp.exec_cmd(
-        ghostty .. " -e tmux new-session -A -s main"
+        "python3 " .. script("tmux-launch.py")
     ),
-    { description = "Open Ghostty with tmux" }
+    { description = "应用｜打开 Ghostty + tmux" }
 )
 
 -- Super + E: Yazi
@@ -40,32 +46,32 @@ hl.bind(
     hl.dsp.exec_cmd(
         ghostty .. " -e yazi"
     ),
-    { description = "Open Yazi file manager" }
+    { description = "应用｜打开 Yazi 文件管理器" }
 )
 
 -- Super + D: Application launcher
 hl.bind(
     mod .. " + D",
     hl.dsp.exec_cmd("wofi --show drun"),
-    { description = "Open application launcher" }
+    { description = "应用｜打开 Wofi 应用启动器" }
 )
 
 -- ==========================================
 -- 2. Window switching
 -- ==========================================
 
--- Alt + Tab: Next window
+-- Alt + Tab: Next window within the current workspace
 hl.bind(
     "ALT + Tab",
-    hl.dsp.window.cycle_next(),
-    { description = "Focus next window" }
+    function() windows.cycle_workspace(true) end,
+    { description = "窗口｜当前工作区 MRU 下一个窗口" }
 )
 
--- Alt + Shift + Tab: Previous window
+-- Alt + Shift + Tab: Previous window within the current workspace
 hl.bind(
     "ALT + SHIFT + Tab",
-    hl.dsp.window.cycle_next({ next = false }),
-    { description = "Focus previous window" }
+    function() windows.cycle_workspace(false) end,
+    { description = "窗口｜当前工作区 MRU 上一个窗口" }
 )
 
 -- ==========================================
@@ -76,7 +82,7 @@ hl.bind(
 hl.bind(
     mod .. " + L",
     hl.dsp.exec_cmd("hyprlock"),
-    { description = "Lock screen" }
+    { description = "系统｜锁屏" }
 )
 
 -- ==========================================
@@ -87,74 +93,21 @@ hl.bind(
 hl.bind(
     mod .. " + X",
     hl.dsp.window.close(),
-    { description = "Close active window" }
-)
-
--- Super + H: Minimize active window
-hl.bind(
-    mod .. " + H",
-    function()
-        local window = hl.get_active_window()
-
-        if not window then
-            return
-        end
-
-        hl.dispatch(
-            hl.dsp.window.tag({
-                tag = "minimized",
-                window = window,
-            })
-        )
-
-        hl.dispatch(
-            hl.dsp.window.move({
-                workspace = "special:minimized",
-                follow = false,
-            })
-        )
-    end,
-    { description = "Minimize active window" }
-)
-
--- Super + Shift + H: Restore all minimized windows
-hl.bind(
-    mod .. " + SHIFT + H",
-    function()
-        local workspace = hl.get_active_workspace()
-
-        if not workspace then
-            return
-        end
-
-        hl.dispatch(
-            hl.dsp.window.move({
-                workspace = workspace,
-                window = "tag:minimized",
-            })
-        )
-
-        hl.dispatch(
-            hl.dsp.window.clear_tags({
-                window = "tag:minimized",
-            })
-        )
-    end,
-    { description = "Restore minimized windows" }
+    { description = "窗口｜关闭当前窗口" }
 )
 
 -- Super + V: Toggle floating
 hl.bind(
     mod .. " + V",
     hl.dsp.window.float({ action = "toggle" }),
-    { description = "Toggle floating window" }
+    { description = "窗口｜切换浮动 / 平铺" }
 )
 
 -- Super + J: Toggle split
 hl.bind(
     mod .. " + J",
     hl.dsp.layout("togglesplit"),
-    { description = "Toggle split" }
+    { description = "窗口｜切换 Dwindle 分割方向" }
 )
 
 -- ==========================================
@@ -163,26 +116,26 @@ hl.bind(
 
 hl.bind(
     mod .. " + LEFT",
-    hl.dsp.focus({ direction = "left" }),
-    { description = "Focus left window" }
+    function() windows.swap_direction("left") end,
+    { description = "窗口｜同工作区向左交换" }
 )
 
 hl.bind(
     mod .. " + RIGHT",
-    hl.dsp.focus({ direction = "right" }),
-    { description = "Focus right window" }
+    function() windows.swap_direction("right") end,
+    { description = "窗口｜同工作区向右交换" }
 )
 
 hl.bind(
     mod .. " + UP",
-    hl.dsp.focus({ direction = "up" }),
-    { description = "Focus upper window" }
+    function() windows.swap_direction("up") end,
+    { description = "窗口｜同工作区向上交换" }
 )
 
 hl.bind(
     mod .. " + DOWN",
-    hl.dsp.focus({ direction = "down" }),
-    { description = "Focus lower window" }
+    function() windows.swap_direction("down") end,
+    { description = "窗口｜同工作区向下交换" }
 )
 
 -- ==========================================
@@ -192,26 +145,27 @@ hl.bind(
 -- Super + Shift + Right: Move window to external monitor
 hl.bind(
     mod .. " + SHIFT + RIGHT",
-    hl.dsp.window.move({
-        monitor = "DP-4",
-        follow = true,
-    }),
-    { description = "Move window to external monitor" }
+    function() windows.move_to_monitor("external") end,
+    { description = "显示器｜移动窗口到外接屏并跟随" }
 )
 
 -- Super + Shift + Left: Move window to laptop monitor
 hl.bind(
     mod .. " + SHIFT + LEFT",
-    hl.dsp.window.move({
-        monitor = "eDP-1",
-        follow = true,
-    }),
-    { description = "Move window to laptop monitor" }
+    function() windows.move_to_monitor("internal") end,
+    { description = "显示器｜移动窗口到笔记本屏并跟随" }
 )
 
 -- ==========================================
 -- 7. Workspace management
 -- ==========================================
+
+-- Super + C: Create and switch to the lowest unused numbered workspace
+hl.bind(
+    mod .. " + C",
+    windows.create_workspace,
+    { description = "工作区｜创建并切换到新工作区" }
+)
 
 for i = 1, 10 do
     local key = i % 10
@@ -220,14 +174,14 @@ for i = 1, 10 do
     hl.bind(
         mod .. " + " .. key,
         hl.dsp.focus({ workspace = i }),
-        { description = "Switch to workspace " .. i }
+        { description = "工作区｜切换到工作区 " .. i }
     )
 
     -- Super + Shift + 1~0: Move window to workspace
     hl.bind(
         mod .. " + SHIFT + " .. key,
-        hl.dsp.window.move({ workspace = i }),
-        { description = "Move window to workspace " .. i }
+        hl.dsp.window.move({ workspace = i, follow = true }),
+        { description = "工作区｜移动窗口并跟随到工作区 " .. i }
     )
 end
 
@@ -239,14 +193,14 @@ end
 hl.bind(
     mod .. " + mouse:272",
     hl.dsp.window.drag(),
-    { mouse = true }
+    { mouse = true, description = "鼠标｜拖动窗口" }
 )
 
 -- Super + Right mouse: Resize window
 hl.bind(
     mod .. " + mouse:273",
     hl.dsp.window.resize(),
-    { mouse = true }
+    { mouse = true, description = "鼠标｜调整窗口大小" }
 )
 
 -- ==========================================
@@ -257,17 +211,55 @@ hl.bind(
 hl.bind(
     mod .. " + SHIFT + S",
     hl.dsp.exec_cmd(
-        "bash " .. scripts .. "/screenshot-region.sh"
+        script("screenshot-region.sh")
     ),
-    { description = "Screenshot region" }
+    { description = "截图｜区域截图并保存" }
 )
 
 -- Super + Ctrl + S: Screenshot region to clipboard
 hl.bind(
     mod .. " + CTRL + S",
     hl.dsp.exec_cmd(
-        "bash " .. scripts .. "/screenshot-clipboard.sh"
+        script("screenshot-clipboard.sh")
     ),
-    { description = "Screenshot to clipboard" }
+    { description = "截图｜区域截图到剪贴板" }
 )
 
+
+-- ==========================================
+-- 10. Desktop control center
+-- ==========================================
+
+-- Super + F1: Keyboard shortcut reference
+hl.bind(
+    mod .. " + F1",
+    hl.dsp.exec_cmd(
+        script("shortcut-help.sh")
+    ),
+    { description = "辅助｜快捷键帮助" }
+)
+
+-- Super + F2: System monitor
+hl.bind(
+    mod .. " + F2",
+    hl.dsp.exec_cmd(
+        script("system-monitor.sh")
+    ),
+    { description = "辅助｜系统监控" }
+)
+
+-- Super + F3: Volume and Bluetooth control
+hl.bind(
+    mod .. " + F3",
+    hl.dsp.exec_cmd(
+        script("device-control.sh")
+    ),
+    { description = "辅助｜音量与蓝牙控制" }
+)
+
+-- Freeze traversal order while Alt is held; next gesture starts with updated MRU.
+for _, key in ipairs({ "Alt_L", "Alt_R" }) do
+    hl.bind(key, windows.end_cycle, { release = true, non_consuming = true, ignore_mods = true })
+end
+hl.bind("SUPER + SHIFT + UP", hl.dsp.window.resize({x=0,y=-40,relative=true}), {description="窗口｜垂直缩小"})
+hl.bind("SUPER + SHIFT + DOWN", hl.dsp.window.resize({x=0,y=40,relative=true}), {description="窗口｜垂直放大"})

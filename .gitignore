@@ -1,29 +1,30 @@
-cat > .gitignore <<'EOF'
-# Backups
-**/backup/
-*.bak
-*.bak.*
+# Local profiles (examples remain versioned)
+/profiles/hardware.lua
+/profiles/user.lua
 
-# Logs
+# Reviewed local historical snapshots; retain on disk
+/config/hypr/backup/
+/config/waybar/backup/
+
+# Python and runtime caches
+__pycache__/
+*.py[cod]
+.cache/
+.pytest_cache/
+
+# Logs and temporary/editor files
 *.log
-
-# Temporary files
 *.tmp
 *.swp
 *.swo
 *~
-
-# Editor
 .vscode/
 .idea/
 
-# Runtime
-.cache/
-__pycache__/
-*.pyc
-
-# Secrets
+# Local secrets; keep example environment files visible
 .env
 .env.*
 !.env.example
-EOF
+/docs/
+/portability-review/
+*.bak

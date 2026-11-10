@@ -10,13 +10,13 @@ hl.config({
         gaps_in = 5,
         gaps_out = 10,
 
-        border_size = 2,
+        border_size = 3,
 
         col = {
             active_border = {
                 colors = {
-                    "rgba(" .. c.blue .. "ee)",
-                    "rgba(" .. c.purple .. "ee)",
+                    "rgba(" .. c.blue .. "ff)",
+                    "rgba(" .. c.purple .. "ff)",
                 },
                 angle = 45,
             },
@@ -38,10 +38,19 @@ hl.config({
         inactive_opacity = 0.90,
 
         shadow = {
+            -- Outer neon approximation: native colored shadow, not bloom.
+            -- decoration.glow in 0.57.1 is INNER glow; keep text unobscured.
             enabled = true,
-            range = 12,
-            render_power = 3,
-            color = 0xee1a1a1a,
+            range = 26,
+            render_power = 2,
+            color = {
+                colors = {
+                    "rgba(" .. c.blue .. "cc)",
+                    "rgba(" .. c.purple .. "cc)",
+                },
+                angle = 45,
+            },
+            color_inactive = "rgba(" .. c.bg_dark .. "00)",
         },
 
         blur = {

@@ -1,0 +1,24 @@
+# ===== Font =====
+font-family = JetBrainsMono NFM
+font-family-bold = JetBrainsMono Nerd Font Mono
+font-family-italic = JetBrainsMono Nerd Font Mono
+font-family-bold-italic = JetBrainsMono Nerd Font Mono
+font-size = 12
+
+# ===== Theme =====
+theme = TokyoNight Storm
+
+# ===== Window =====
+# Apply opacity to tmux capsules and other explicit terminal cell backgrounds.
+background-opacity = 0.88
+background-opacity-cells = true
+background-blur = 10
+window-padding-x = 16
+window-padding-y = 12
+
+# ===== Cursor =====
+cursor-style = block
+cursor-style-blink = false
+
+# ===== Terminal =====
+term = xterm-256color

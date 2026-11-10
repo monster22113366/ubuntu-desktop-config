@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Network Control
+Name[zh_CN]=网络控制中心
+Comment=Wi-Fi 与有线网络管理
+Exec=/home/monster/Projects/ubuntu-desktop-config/config/scripts/network-control.sh
+Icon=network-wireless
+Terminal=false
+Categories=Settings;
+Keywords=network;wifi;ethernet;网络;无线;
+NotShowIn=GNOME;

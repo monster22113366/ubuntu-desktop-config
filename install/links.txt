@@ -1,0 +1,29 @@
+# source relative to repository | destination relative to HOME
+# Keep Hyprland directories intact: link individual native modules.
+config/hypr/hyprland.lua|.config/hypr/hyprland.lua
+config/hypr/config/monitor.lua|.config/hypr/config/monitor.lua
+config/hypr/config/input.lua|.config/hypr/config/input.lua
+config/hypr/config/appearance.lua|.config/hypr/config/appearance.lua
+config/hypr/config/animations.lua|.config/hypr/config/animations.lua
+config/hypr/config/keybinds.lua|.config/hypr/config/keybinds.lua
+config/hypr/config/autostart.lua|.config/hypr/config/autostart.lua
+config/hypr/config/window-management.lua|.config/hypr/config/window-management.lua
+config/hypr/colors/tokyo-night.lua|.config/hypr/colors/tokyo-night.lua
+config/hypr/stubs/hl.meta.lua|.config/hypr/stubs/hl.meta.lua
+profiles|.config/hypr/profiles
+config/hypr/hypridle/hypridle.conf|.config/hypr/hypridle.conf
+config/hypr/hyprlock/hyprlock.conf|.config/hypr/hyprlock.conf
+config/waybar/config.jsonc|.config/waybar/config.jsonc
+config/waybar/style.css|.config/waybar/style.css
+config/waybar/scripts|.config/waybar/scripts
+config/ghostty/config|.config/ghostty/config
+config/wofi|.config/wofi
+config/swaync/style.css|.config/swaync/style.css
+config/starship/starship.toml|.config/starship.toml
+config/nvim|.config/nvim
+config/tmux/tmux.conf|.tmux.conf
+config/tmux/status.conf|.config/tmux/status.conf
+config/tmux/scripts|.config/tmux/scripts
+config/tmux/scripts/tmux-clipboard-copy|.local/bin/tmux-clipboard-copy
+config/applications/google-chrome.desktop|.local/share/applications/google-chrome.desktop
+config/applications/network-control.desktop|.local/share/applications/network-control.desktop
