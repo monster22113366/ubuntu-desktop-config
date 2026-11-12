@@ -1,0 +1,9 @@
+# Yazi 26.9.1. Keep upstream MIME rules, previews and archive handling.
+[opener]
+edit = [
+  { run = '/usr/bin/python3 "${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}/scripts/actions.py" edit %s', block = true, desc = "编辑器", for = "linux" },
+]
+open = [
+  { run = '/usr/bin/python3 "${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}/scripts/actions.py" open %s', orphan = true, desc = "系统默认应用", for = "linux" },
+  { run = '/usr/bin/python3 "${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}/scripts/actions.py" choose %s', orphan = true, desc = "选择其他应用…", for = "linux" },
+]
