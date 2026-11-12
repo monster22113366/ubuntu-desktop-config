@@ -7,6 +7,12 @@
 
 local mod = "SUPER"
 
+local function native_exec(command)
+    local runner = os.getenv("HOME") .. "/.local/bin/udc-native-run"
+    local function quote(value) return "'" .. value:gsub("'", "'\"'\"'") .. "'" end
+    return hl.dsp.exec_cmd(quote(runner) .. " /bin/sh -c " .. quote(command))
+end
+
 -- Native Ubuntu Ghostty with corrected font locale
 local ghostty = "env LC_CTYPE=C.UTF-8 /usr/bin/ghostty"
 
@@ -27,14 +33,14 @@ end
 -- Super + G: Ghostty
 hl.bind(
     mod .. " + G",
-    hl.dsp.exec_cmd(ghostty),
+    native_exec(ghostty),
     { description = "应用｜打开 Ghostty" }
 )
 
 -- Super + T: Ghostty + tmux
 hl.bind(
     mod .. " + T",
-    hl.dsp.exec_cmd(
+    native_exec(
         "python3 " .. script("tmux-launch.py")
     ),
     { description = "应用｜打开 Ghostty + tmux" }
@@ -43,7 +49,7 @@ hl.bind(
 -- Super + E: Yazi
 hl.bind(
     mod .. " + E",
-    hl.dsp.exec_cmd(
+    native_exec(
         ghostty .. " -e yazi"
     ),
     { description = "应用｜打开 Yazi 文件管理器" }
@@ -52,7 +58,7 @@ hl.bind(
 -- Super + D: Application launcher
 hl.bind(
     mod .. " + D",
-    hl.dsp.exec_cmd("wofi --show drun"),
+    native_exec("wofi --show drun"),
     { description = "应用｜打开 Wofi 应用启动器" }
 )
 
@@ -81,7 +87,7 @@ hl.bind(
 -- Super + L: Lock screen
 hl.bind(
     mod .. " + L",
-    hl.dsp.exec_cmd("hyprlock"),
+    native_exec("hyprlock"),
     { description = "系统｜锁屏" }
 )
 
@@ -210,7 +216,7 @@ hl.bind(
 -- Super + Shift + S: Screenshot region and save
 hl.bind(
     mod .. " + SHIFT + S",
-    hl.dsp.exec_cmd(
+    native_exec(
         script("screenshot-region.sh")
     ),
     { description = "截图｜区域截图并保存" }
@@ -219,7 +225,7 @@ hl.bind(
 -- Super + Ctrl + S: Screenshot region to clipboard
 hl.bind(
     mod .. " + CTRL + S",
-    hl.dsp.exec_cmd(
+    native_exec(
         script("screenshot-clipboard.sh")
     ),
     { description = "截图｜区域截图到剪贴板" }
@@ -233,7 +239,7 @@ hl.bind(
 -- Super + F1: Keyboard shortcut reference
 hl.bind(
     mod .. " + F1",
-    hl.dsp.exec_cmd(
+    native_exec(
         script("shortcut-help.sh")
     ),
     { description = "辅助｜快捷键帮助" }
@@ -242,7 +248,7 @@ hl.bind(
 -- Super + F2: System monitor
 hl.bind(
     mod .. " + F2",
-    hl.dsp.exec_cmd(
+    native_exec(
         script("system-monitor.sh")
     ),
     { description = "辅助｜系统监控" }
@@ -251,7 +257,7 @@ hl.bind(
 -- Super + F3: Volume and Bluetooth control
 hl.bind(
     mod .. " + F3",
-    hl.dsp.exec_cmd(
+    native_exec(
         script("device-control.sh")
     ),
     { description = "辅助｜音量与蓝牙控制" }

@@ -194,7 +194,6 @@ deploy_configs() {
         link_config "$source" "$HOME/.local/share/fonts/udc-jetbrains-mono"
         if ! "$dry_run"; then fc-cache -f "$HOME/.local/share/fonts"; fi
     else skip 'Nix 字体目录未出现；已有系统字体保持不变（新安装请核对字体）'; fi
-    skip 'Yazi 无仓库配置，保留已有用户数据，不创建虚构配置'
     printf '\n不会重载桌面或 tmux，不修改系统代理、服务设置或 Shell 初始化。\n'
     printf '请核对图形会话 PATH 包含 ~/.nix-profile/bin、~/.local/bin；Starship 的 Shell 初始化沿用现有配置。\n'
 }

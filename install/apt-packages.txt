@@ -28,3 +28,7 @@ slurp
 xdg-user-dirs
 luajit
 desktop-file-utils
+# Yazi system application chooser (Ubuntu Python/GObject, not Nix Python).
+python3-gi
+gir1.2-gtk-3.0
+xdg-utils

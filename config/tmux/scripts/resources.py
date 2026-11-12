@@ -79,6 +79,10 @@ def intel_percent():
     device = intel_device()
     if device is None:
         return 'N/A'
+    # Prefer the explicitly provisioned user entry, including in old tmux
+    # servers whose PATH predates desktop deployment.
+    local_tool = Path.home() / '.local/bin/intel_gpu_top'
+    tool = str(local_tool) if os.access(local_tool, os.X_OK) else 'intel_gpu_top'
     import tempfile
     import signal
     import resource
@@ -87,7 +91,7 @@ def intel_percent():
     try:
         with tempfile.TemporaryFile(mode='w+') as output:
             process = subprocess.Popen(
-                ['intel_gpu_top', '-d', 'drm:' + device, '-J', '-s', '500', '-o', '-'],
+                [tool, '-d', 'drm:' + device, '-J', '-s', '500', '-o', '-'],
                 stdout=output, stderr=subprocess.DEVNULL, preexec_fn=no_core)
             try:
                 process.wait(timeout=1.6)

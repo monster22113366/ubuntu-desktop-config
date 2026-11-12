@@ -33,7 +33,7 @@ Neovim 插件仍按原配置由 lazy.nvim 管理，首次启动可能下载插�
 
 完整链接清单在 `install/links.txt`，左侧相对仓库，右侧相对 HOME。Hyprland 保持逐文件链接，另将 `profiles/` 链接到 `~/.config/hypr/profiles`，不会整体替换 `~/.config/hypr`。
 
-Neovim 目录链接到 `~/.config/nvim`；tmux 主配置链接到 `~/.tmux.conf`，通过 `~/.config/tmux/status.conf` 读取样式，资源脚本也从 `~/.config/tmux/scripts` 读取。Ghostty、Starship 和其他模块按清单部署。Yazi 不部署配置，保留现有数据。
+Neovim 目录链接到 `~/.config/nvim`；tmux 主配置链接到 `~/.tmux.conf`，通过 `~/.config/tmux/status.conf` 读取样式，资源脚本也从 `~/.config/tmux/scripts` 读取。Ghostty、Starship 和其他模块按清单部署。Yazi 按文件部署 yazi.toml、keymap.toml 和 scripts；保留用户的 local.toml、插件及其他数据。版本基线为 Yazi 26.9.1，使用该版本的 `%s` 命令模板。系统应用选择需要 python3-gi、gir1.2-gtk-3.0、xdg-utils；本机终端/编辑器参数见 config/yazi/README.md。
 
 冲突的普通文件、目录和符号链接会先移动到：
 

@@ -1,0 +1,20 @@
+[[mgr.prepend_keymap]]
+on = "O"
+run = 'shell "/usr/bin/python3 \"${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}/scripts/actions.py\" choose %s" --orphan'
+desc = "打开方式：选择已安装应用"
+
+[[mgr.prepend_keymap]]
+on = "T"
+run = 'shell "/usr/bin/python3 \"${YAZI_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}/yazi}/scripts/actions.py\" terminal" --orphan'
+desc = "在当前目录打开终端"
+
+[[mgr.prepend_keymap]]
+on = ["g", "o"]
+run = "open --interactive"
+desc = "Yazi 打开菜单（编辑、解压等）"
+
+# Copy selected files to Wayland system clipboard
+[[mgr.prepend_keymap]]
+on = ["g", "Y"]
+run = """shell -- for path in %s; do printf 'file://%%s\\r\\n' "$path"; done | wl-copy --type text/uri-list"""
+desc = "Copy selected files to system clipboard"

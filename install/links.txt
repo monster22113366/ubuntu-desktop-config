@@ -27,3 +27,6 @@ config/tmux/scripts|.config/tmux/scripts
 config/tmux/scripts/tmux-clipboard-copy|.local/bin/tmux-clipboard-copy
 config/applications/google-chrome.desktop|.local/share/applications/google-chrome.desktop
 config/applications/network-control.desktop|.local/share/applications/network-control.desktop
+config/yazi/yazi.toml|.config/yazi/yazi.toml
+config/yazi/keymap.toml|.config/yazi/keymap.toml
+config/yazi/scripts|.config/yazi/scripts

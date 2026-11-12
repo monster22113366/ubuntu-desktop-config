@@ -95,7 +95,7 @@ install_nix''',checkout)
         self.assertNotEqual(result.returncode,0)
         self.assertIn('无效软件包名',result.stderr)
 
-    def test_manifest_targets_exist_and_excludes_empty_yazi(self):
+    def test_manifest_targets_exist_and_yazi_uses_file_links(self):
         destinations=set()
         for line in (ROOT/'install/links.txt').read_text().splitlines():
             if not line or line.startswith('#'):continue

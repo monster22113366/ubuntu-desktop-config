@@ -12,6 +12,9 @@ hardware_text=$(jq -er '.text // empty' <<< "$hardware" 2>/dev/null) || hardware
 gpu=$(timeout 5 bash "$HOME/Projects/ubuntu-desktop-config/config/waybar/scripts/nvidia.sh" 2>/dev/null) || gpu='{}'
 gpu_text=$(jq -er '.text // empty' <<< "$gpu" 2>/dev/null) || gpu_text="GPU：不可用"
 
+# Include the existing auto-detected Intel/NVIDIA resource sampler.
+resources=$(timeout 5 python3 "$HOME/.config/tmux/scripts/resources.py" 2>/dev/null) || resources="GPU 采样不可用"
+
 # Memory
 memory=$(free -h | awk '/^Mem:/ {
     printf "%s / %s", $3, $2
@@ -47,6 +50,7 @@ uptime_text=$(uptime -p)
     echo "━━━ HARDWARE ━━━"
     echo "$hardware_text"
     echo "$gpu_text"
+    echo "$resources"
 
     echo ""
     echo "━━━ MEMORY & STORAGE ━━━"

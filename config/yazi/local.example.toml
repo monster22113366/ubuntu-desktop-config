@@ -1,0 +1,8 @@
+# Optional: copy to ~/.config/yazi/local.toml on the target machine.
+# Argument arrays, never shell snippets; {cwd} is replaced as one argument.
+[terminal]
+argv = ["ghostty", "--working-directory={cwd}"]
+# Examples: ["kitty", "--directory", "{cwd}"] or ["gnome-terminal", "--working-directory={cwd}"]
+
+[editor]
+argv = ["nvim"]

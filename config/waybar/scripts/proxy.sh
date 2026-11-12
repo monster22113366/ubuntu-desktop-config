@@ -12,7 +12,7 @@ set -uo pipefail
 # proxy client or changing its local port.
 # ==========================================
 
-PROXY_URL="http://127.0.0.1:7897"
+PROXY_URL="http://127.0.0.1:7890"
 TEST_URL="https://chatgpt.com"
 TIMEOUT=8
 
@@ -24,7 +24,7 @@ fi
 
 # Check local proxy port.
 if ! timeout 2 bash -c \
-    "echo > /dev/tcp/127.0.0.1/7897" 2>/dev/null; then
+    "echo > /dev/tcp/127.0.0.1/7890" 2>/dev/null; then
 
     printf '{"text":"PROXY OFF","class":"critical","tooltip":"本地代理端口未监听"}\n'
     exit 0

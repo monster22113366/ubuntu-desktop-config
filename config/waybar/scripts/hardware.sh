@@ -1,7 +1,7 @@
 
 #!/usr/bin/env bash
 
-# Legion Y7000P hardware monitoring
+# Hardware monitoring via detected hwmon sensors
 # CPU / NVMe / Fan
 
 set -euo pipefail

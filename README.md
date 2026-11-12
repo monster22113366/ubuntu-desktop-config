@@ -15,7 +15,7 @@ config/
   nvim/          本机实际 Neovim 配置、插件锁文件与资源
   starship/      三行提示符
   wofi/ swaync/  菜单与通知样式
-  yazi/          空模块预留（Git 不保存空目录）
+  yazi/          原生配置、快捷键及模块化桌面动作
 profiles/        示例及 Git 忽略的本机参数
 nix/packages.txt Nix 软件包属性清单
 install/         部署脚本、apt 清单与链接清单
@@ -35,7 +35,7 @@ bash install/install.sh
 
 脚本安装缺失依赖、备份冲突配置并建立链接，不主动重载桌面。已有软件来源和个人 Profile 保留。换设备时先让 AI 按 [移植指南](docs/ai-porting-guide.md) 修改实际差异，再部署。
 
-Neovim 来自当前 `~/.config/nvim` 的磁盘内容，含未提交的本机修改；tmux 主配置也已纳管。Yazi 尚无配置，SwayNC 目前只管理样式。Shell 初始化、驱动、代理软件及系统服务仍需人工维护。
+Neovim 来自当前 `~/.config/nvim` 的磁盘内容，含未提交的本机修改；tmux 主配置也已纳管。Yazi 管理打开方式与目录终端入口，详见 [Yazi 配置](config/yazi/README.md)；SwayNC 目前只管理样式。Shell 初始化、驱动、代理软件及系统服务仍需人工维护。
 
 ## 文档与验证
 
