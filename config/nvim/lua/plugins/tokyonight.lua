@@ -6,20 +6,14 @@ return {
 
     opts = {
         style = "storm",
-        transparent = false,
+        -- Inherit Ghostty background and opacity, like the tmux status line.
+        transparent = true,
         terminal_colors = true,
 
         styles = {
-            sidebars = "dark",
-            floats = "dark",
+            sidebars = "transparent",
+            floats = "transparent",
         },
-
-        on_colors = function(colors)
-            colors.bg = "#2B3048"
-            colors.bg_dark = "#252B40"
-            colors.bg_float = "#303750"
-            colors.bg_sidebar = "#292F45"
-        end,
     },
 
     config = function(_, opts)

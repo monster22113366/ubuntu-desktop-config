@@ -22,4 +22,5 @@ cursor-style-blink = false
 
 # ===== Terminal =====
 command = /bin/bash --login
-term = xterm-256color
+# Preserve terminal detection for tmux and Kitty image integrations.
+term = xterm-ghostty

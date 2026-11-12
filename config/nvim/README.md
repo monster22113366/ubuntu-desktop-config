@@ -52,6 +52,10 @@ Linux 使用 `real-icons.nvim`，图标资源采用 Fogio 的 JetBrains New UI S
 
 请保留仓库中的 `assets/jetbrains-file-icons/` 目录；不要单独移动 SVG 文件。图标显示需要 Ghostty 和支持 Kitty Graphics Protocol 的终端环境。
 
+在 tmux 中还需启用 `allow-passthrough on`，并为外层终端配置 RGB（见仓库 `config/tmux/tmux.conf`）。real-icons 用精确 RGB 颜色编码图片 ID，只有 Neovim 的 `termguicolors` 而没有 tmux 的 RGB 支持仍会导致图片不显示。Ghostty 使用 `term = xterm-ghostty`；修改后需重新打开终端窗口。
+
+Neovim 使用 TokyoNight Storm，主窗口、侧栏和浮窗采用透明背景，直接沿用 Ghostty 的背景色与透明度。
+
 Ubuntu 24.04 提供 ImageMagick 6。如果配置调用 `magick` 命令，可创建兼容入口：
 
 ```bash
