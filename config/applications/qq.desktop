@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=QQ
+TryExec=/opt/QQ/qq
+Exec=sh -c "exec \\"\\$HOME/.local/bin/qq-hidpi\\" \\"\\$@\\"" qq %U
+Terminal=false
+Type=Application
+Icon=/usr/share/icons/hicolor/512x512/apps/qq.png
+StartupWMClass=QQ
+Categories=Network;
+Comment=QQ

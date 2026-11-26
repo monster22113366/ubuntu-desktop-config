@@ -52,3 +52,37 @@ Neovim 目录链接到 `~/.config/nvim`；tmux 主配置链接到 `~/.tmux.conf`
 脚本不重载桌面或 tmux，不修改代理配置。运行中的软件可能自行监测配置变化，建议在维护窗口部署。用户检查完成后再选择重新登录、打开新终端或重载对应软件。
 
 新机的 GPU 驱动、intel_gpu_top 与采样权限、网络/蓝牙服务授权、中文字体、Chrome、代理服务、显示器热插拔均需独立验收；部署成功不代表这些功能已验证。
+
+## Super+F3 设备控制面板
+
+在目标屏幕聚焦窗口后按 Super+F3，Esc 关闭。音量滑块操作当前默认输出，可切换静音；亮度滑块只操作屏幕背光。多背光设备可在本机 Hardware Profile 的返回表中填入可选字段 `backlight = "设备名"`，候选名见 `ls /sys/class/backlight`。
+
+蓝牙按当前适配器分为“已配对设备”和“附近未配对设备”，两区独立滚动。已配对设备在停止扫描后仍显示，已连接设备优先。点“扫描”发现设备，选择“配对”并核对两端数字；完成后设备移入已配对区。点“停止扫描”或关闭面板释放本面板的扫描。状态来自 BlueZ；本机键盘曾在成功断开后约 175–197 ms 再次连接，面板会显示重新连接的状态。手机扫描、数字确认配对、连接与断开已通过人工验收。
+
+基础面板需要系统 Python 3、PyGObject、GTK3 GIR、BlueZ、wpctl 和 brightnessctl，必需包按 apt 清单部署。可选增强 `gir1.2-gtklayershell-0.1` 使 GTK 使用 Layer Shell；缺少它时自动使用 Hyprland 浮窗规则。安装器跳过此可选包。本机运行库及 GIR 候选均为 PPA 的 `0.9.0-1ppa1`，模拟结果仅新增 GIR。其他机器可先执行：
+
+```bash
+apt-cache policy libgtk-layer-shell0 gir1.2-gtklayershell-0.1
+apt-get -s install gir1.2-gtklayershell-0.1
+```
+
+仅在需要浮层、候选兼容且模拟不会替换或降级现有库时，单独执行 `sudo apt-get install --no-install-recommends gir1.2-gtklayershell-0.1`，关闭并重新打开面板即可。
+
+## 按功能回滚
+
+本次修补前的本机备份位于 `~/.local/state/ubuntu-desktop-config/backups/v2.1-before-3UTCsF/`，内部路径与仓库一致。以下命令仅用于回到修补前的蓝牙列表和配套测试。在仓库根目录执行，若之后做过其他修改，先用 `diff -u` 查看两份文件的差异。
+
+```bash
+v21_backup="$HOME/.local/state/ubuntu-desktop-config/backups/v2.1-before-3UTCsF"
+cp -- "$v21_backup/config/scripts/devices/panel.py" config/scripts/devices/panel.py
+cp -- "$v21_backup/tests/test_device_panel.py" tests/test_device_panel.py
+```
+
+| 范围 | 操作 |
+|---|---|
+| HiDPI、QQ、WPS | [HiDPI 维护文档](HIDPI.md) 记录 Qt 会话设置、QQ 用户入口、诊断链接与零缩放的分别恢复方法。WPS 的会话启动参数和全局 XWayland 选项可独立回滚。 |
+| 仅恢复 V2.0 蓝牙单列表 | 关闭面板，从本轮修改前的备份恢复 `config/scripts/devices/panel.py` 与 `tests/test_device_panel.py` 至仓库原相对路径，再按 Super+F3。音量、亮度及 BlueZ 后端继续使用同一版本。 |
+| 恢复原 Wofi 设备菜单 | 在 `config/hypr/config/keybinds.lua` 将 F3 的回调换回 `hl.dsp.exec_cmd(script("device-control.sh"))`，移除名为 `desktop-device-panel` 的窗口规则；旧脚本仍在。若永久移除 GTK 面板，再从链接清单移除 devices 目录那一行，移除对应的用户符号链接。 |
+| 可选 GIR | 本轮仅模拟安装。若以后单独安装且此前未安装，先用 `apt-get -s remove gir1.2-gtklayershell-0.1` 核对只影响该包，再按需移除。若需恢复 V2.0 的必装策略，在 `install/apt-packages.txt` 末尾加回该包名即可。 |
+| Waybar 日期 | 仅将 `config/waybar/config.jsonc` 的 clock.format 恢复为 `󰥔 {:%H:%M}`，用 `pkill -USR2 -u "$(id -u)" -x waybar` 让本用户 Waybar 重读配置。 |
+| V2.1 文档 | 本轮备份含 `HIDPI.md` 与 `INSTALL.md` 原件。按需恢复对应段落；文档调整可独立于运行配置。 |

@@ -2,6 +2,9 @@
 -- Monitor Configuration
 -- ==========================================
 
+-- XWayland clients render at native pixels on scaled outputs.
+hl.config({ xwayland = { force_zero_scaling = true } })
+
 local hardware = require("profiles.hardware")
 
 for _, monitor in ipairs(hardware.monitors) do

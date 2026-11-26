@@ -248,14 +248,20 @@ hl.bind(
     { description = "辅助｜系统监控" }
 )
 
--- Super + F3: Volume and Bluetooth control
-hl.bind(
-    mod .. " + F3",
-    hl.dsp.exec_cmd(
-        script("device-control.sh")
-    ),
-    { description = "辅助｜音量与蓝牙控制" }
-)
+-- Fallback when the GTK Layer Shell typelib is unavailable.
+hl.window_rule({
+    name = "desktop-device-panel", match = { class = "^org[.]ubuntu[.]DesktopDevices$" },
+    float = true, center = true,
+})
+hl.bind(mod .. " + F3", function()
+    local output = hl.get_active_monitor()
+    local backlight = require("profiles.hardware").backlight or ""
+    local function quote(value)
+        return "'" .. value:gsub("'", "'\"'\"'") .. "'"
+    end
+    hl.exec_cmd('/usr/bin/python3 "$HOME/.local/lib/ubuntu-desktop-config/devices/panel.py" '
+        .. quote(output and output.name or "") .. " " .. quote(backlight))
+end, { description = "辅助｜音量、亮度与蓝牙控制" })
 
 -- Freeze traversal order while Alt is held; next gesture starts with updated MRU.
 for _, key in ipairs({ "Alt_L", "Alt_R" }) do

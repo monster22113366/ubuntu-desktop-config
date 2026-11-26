@@ -1,0 +1,36 @@
+#!/usr/bin/python3
+"""Inspect mapped windows without collecting document titles."""
+import json
+import subprocess
+import sys
+
+
+def query(*args):
+    return json.loads(subprocess.check_output(["hyprctl", "-j", *args], timeout=4))
+
+
+def main():
+    monitors = {m["id"]: m for m in query("monitors")}
+    for m in monitors.values():
+        print(f'{m["name"]}  {m["width"]}×{m["height"]}  scale={m["scale"]}')
+    zero = query("getoption", "xwayland:force_zero_scaling")["bool"]
+    print(f'xwayland.force_zero_scaling={str(zero).lower()}')
+    active = query("activewindow").get("address")
+    for window in query("clients"):
+        if not window.get("mapped"):
+            continue
+        monitor = monitors.get(window.get("monitor"), {})
+        x11 = window["xwayland"]
+        risk = ""
+        if x11 and monitor.get("scale", 1) % 1:
+            risk = "检查控件尺寸和应用 DPI" if zero else "检查文字插值及原生后端支持"
+        print("*" if active == window["address"] else " ", window["class"],
+              "XWayland" if x11 else "Wayland", monitor.get("name", "?"), risk)
+    print("* 为活动窗口。请在两屏比较同一字号，后端标识不能判断清晰度。")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        sys.exit(f"无法读取 Hyprland 会话，请在当前桌面运行：{error}")

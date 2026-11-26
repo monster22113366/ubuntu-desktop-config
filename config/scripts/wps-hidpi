@@ -1,0 +1,15 @@
+#!/bin/sh
+# Keep vendor launchers in charge of component selection and file/URI handling.
+case "${1:-}" in
+    /usr/bin/wps|/usr/bin/et|/usr/bin/wpp|/usr/bin/wpspdf) ;;
+    *) echo "Usage: wps-hidpi /usr/bin/{wps,et,wpp,wpspdf} [arguments...]" >&2; exit 2 ;;
+esac
+
+case ":${XDG_CURRENT_DESKTOP:-}:" in
+    *:Hyprland:*)
+        if [ -n "${WAYLAND_DISPLAY:-}" ] && [ "${XDG_SESSION_TYPE:-wayland}" = wayland ]; then
+            export QT_QPA_PLATFORM=xcb QT_AUTO_SCREEN_SCALE_FACTOR=1
+        fi
+        ;;
+esac
+exec "$@"

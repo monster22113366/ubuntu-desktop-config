@@ -2,6 +2,9 @@
 -- Autostart
 -- ==========================================
 
+-- Session children only. Keep bundled Qt applications with an XCB plugin usable.
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+
 -- Input method environment for Hyprland and its child processes
 hl.env("GTK_IM_MODULE", "fcitx")
 hl.env("QT_IM_MODULE", "fcitx")

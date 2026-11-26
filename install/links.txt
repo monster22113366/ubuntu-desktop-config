@@ -27,3 +27,13 @@ config/tmux/scripts|.config/tmux/scripts
 config/tmux/scripts/tmux-clipboard-copy|.local/bin/tmux-clipboard-copy
 config/applications/google-chrome.desktop|.local/share/applications/google-chrome.desktop
 config/applications/network-control.desktop|.local/share/applications/network-control.desktop
+config/scripts/hidpi-check|.local/bin/hidpi-check
+config/scripts/qq-hidpi|.local/bin/qq-hidpi
+config/applications/qq.desktop|.local/share/applications/qq.desktop
+config/scripts/devices|.local/lib/ubuntu-desktop-config/devices
+config/scripts/wps-hidpi|.local/bin/wps-hidpi
+config/applications/wps-office-wps.desktop|.local/share/applications/wps-office-wps.desktop
+config/applications/wps-office-et.desktop|.local/share/applications/wps-office-et.desktop
+config/applications/wps-office-wpp.desktop|.local/share/applications/wps-office-wpp.desktop
+config/applications/wps-office-pdf.desktop|.local/share/applications/wps-office-pdf.desktop
+config/applications/wps-office-prometheus.desktop|.local/share/applications/wps-office-prometheus.desktop

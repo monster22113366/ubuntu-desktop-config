@@ -4,6 +4,7 @@
 -- monitor.lua 读取全部四个字段；window-management.lua 按 name 匹配，
 -- 同角色存在多个匹配输出时优先采用此列表中靠前的条目。
 return {
+    -- backlight = "DEVICE_NAME", -- 多个屏幕背光时，从 /sys/class/backlight 选择
     monitors = {
         {
             name = "OUTPUT_NAME",
